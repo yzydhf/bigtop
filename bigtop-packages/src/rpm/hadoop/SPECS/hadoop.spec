@@ -20,6 +20,7 @@
 # since Hadoop build system makes it difficult to pass the kind of flags
 # that would make newer RPM debuginfo generation scripts happy.
 %undefine _missing_build_ids_terminate_build
+%undefine _auto_set_build_flags
 
 %define hadoop_name hadoop
 %define etc_hadoop /etc/%{name}
@@ -176,11 +177,6 @@ Source31: kms.default
 #BIGTOP_PATCH_FILES
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id} -u -n)
 BuildRequires: fuse-devel, fuse
-%if %{?el7}0
-BuildRequires: cmake3
-%else
-BuildRequires: cmake
-%endif
 Requires: coreutils, /usr/sbin/useradd, /usr/sbin/usermod, /sbin/chkconfig, /sbin/service, bigtop-utils >= 0.7, zookeeper >= 3.4.0
 Requires: psmisc, %{netcat_package}
 Requires: openssl-devel

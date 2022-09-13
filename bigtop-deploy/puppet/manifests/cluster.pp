@@ -69,6 +69,7 @@ $roles_map = {
     worker => ["spark-on-yarn"],
     client => ["spark-client"],
     library => ["spark-yarn-slave"],
+    gateway_server => ["spark-thriftserver"],
   },
   spark-standalone => {
     master => ["spark-master"],
@@ -92,10 +93,6 @@ $roles_map = {
   hcat => {
     master => ["hcatalog-server"],
     gateway_server => ["webhcat-server"],
-  },
-  sqoop => {
-    gateway_server => ["sqoop-server"],
-    client => ["sqoop-client"],
   },
   httpfs => {
     gateway_server => ["httpfs-server"],
@@ -133,16 +130,6 @@ $roles_map = {
   },
   livy => {
     master => ["livy-server"],
-  },
-  elasticsearch => {
-    master => ["elasticsearch-server"],
-    worker => ["elasticsearch-server"],
-  },
-  logstash => {
-    client => ["logstash-client"],
-  },
-  kibana => {
-    client => ["kibana-client"],
   },
 }
 
@@ -208,9 +195,6 @@ class node_with_roles ($roles = hiera("bigtop::roles")) inherits hadoop_cluster_
     "gpdb",
     "ambari",
     "bigtop_utils",
-    "elasticsearch",
-    "logstash",
-    "kibana",
   ]
 
   node_with_roles::deploy_module { $modules:

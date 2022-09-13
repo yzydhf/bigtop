@@ -34,7 +34,6 @@ echo -e "\n===== EXPORTING VARIABLES =====\n"
 
 export ALLUXIO_HOME=${ALLUXIO_HOME:-/usr/lib/alluxio}
 export AMBARI_URL=${AMBARI_URL:-http://localhost:8080}
-export ELASTICSEARCH_URL=${ELASTICSEARCH_URL:-http://localhost}
 export FLINK_HOME=${FLINK_HOME:-/usr/lib/flink}
 export GPDB_HOME=${GPDB_HOME:-/usr/lib/gpdb}
 export HADOOP_HOME=${HADOOP_HOME:-/usr/lib/hadoop}
@@ -45,13 +44,10 @@ export HBASE_CONF_DIR=${HBASE_CONF_DIR:-/usr/lib/hbase/conf}
 export HIVE_HOME=${HIVE_HOME:-/usr/lib/hive}
 export HIVE_CONF_DIR=${HIVE_CONF_DIR:-/etc/hive/conf}
 export KAFKA_HOME=${KAFKA_HOME:-/usr/lib/kafka}
-export KIBANA_HOME=${KIBANA_HOME:-/usr/lib/kibana}
 export LIVY_HOME=${LIVY_HOME:-/usr/lib/livy}
-export LOGSTASH_HOME=${LOGSTASH_HOME:-/usr/lib/logstash}
 export OOZIE_TAR_HOME=${OOZIE_TAR_HOME:-/usr/lib/oozie}
 export OOZIE_URL=${OOZIE_URL:-http://localhost:11000/oozie}
 export SPARK_HOME=${SPARK_HOME:-/usr/lib/spark}
-export SQOOP_HOME=${SQOOP_HOME:-/usr/lib/sqoop}
 export TEZ_HOME=${TEZ_HOME:-/usr/lib/tez}
 export WEBHDFS_URL=${WEBHDFS_URL:-$(hostname):50070/webhdfs/v1}
 export YCSB_HOME=${YCSB_HOME:-/usr/lib/ycsb}
@@ -60,8 +56,7 @@ export ZOOKEEPER_HOME=${ZOOKEEPER_HOME:-/usr/lib/zookeeper}
 
 echo -e "\n===== START TO RUN SMOKE TESTS: $SMOKE_TESTS =====\n"
 
-su -s /bin/bash $HCFS_USER -c "hadoop fs -mkdir -p /user/vagrant /user/root /user/yarn"
-su -s /bin/bash $HCFS_USER -c "hadoop fs -chmod 777 /user/vagrant"
+su -s /bin/bash $HCFS_USER -c "hadoop fs -mkdir -p /user/root /user/yarn"
 su -s /bin/bash $HCFS_USER -c "hadoop fs -chmod 777 /user/root"
 su -s /bin/bash $HCFS_USER -c "hadoop fs -chown yarn:yarn /user/yarn"
 

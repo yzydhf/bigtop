@@ -16,7 +16,7 @@
 # "$components" list. If $components isn't set then everything in the stack will
 # be installed as usual. Otherwise only a specified list will be set
 # Possible elements:
-# hadoop,yarn,hbase,alluxio,flink,solrcloud,spark,oozie,hcat,sqoop,httpfs,
+# hadoop,yarn,hbase,alluxio,flink,solrcloud,spark,oozie,hcat,httpfs,
 # pig,hive,zookeeper,ycsb
 # Example (to deploy only HDFS and YARN server and gateway parts)
 # This can be a comma-separated list or an array.
@@ -148,6 +148,12 @@ hcatalog::webhcat::server::kerberos_realm: "%{hiera('kerberos::site::realm')}"
 
 # spark
 spark::common::master_host: "%{hiera('bigtop::hadoop_head_node')}"
+spark::common::spark_sql_warehouse_dir: "/user/spark/spark-warehouse"
+spark::common::spark_hive_server2_thrift_port: 12000
+# to deploy spark thrift server with hive, you should uncomment the line below
+# spark::common::spark_thrift_server_without_hive: false
+spark::common::spark_hadoop_javax_jdo_option_ConnectionURL: "jdbc:derby:;databaseName=/var/lib/spark/metastore_db;create=true"
+spark::common::spark_hadoop_javax_jdo_option_ConnectionDriverName: "org.apache.derby.jdbc.EmbeddedDriver"
 # to enable spark HA, ensure zookeeper is available and uncomment the line below
 #spark::common::zookeeper_connection_string: "%{hiera('hadoop::zk')}"
 
@@ -180,6 +186,8 @@ hadoop::common::tez_jars: "/usr/lib/tez"
 
 # to enable tez in hive, uncomment the lines below
 # hadoop_hive::common_config::hive_execution_engine: "tez"
+# hadoop_hive::common_config::hive_tez_container_size: 1024
+# hadoop_hive::common_config::hive_tez_cpu_vcores: 1
 
 #kafka
 kafka::server::port: "9092"
@@ -209,6 +217,3 @@ gpdb::common::master_db_port: "5432"
 gpdb::common::segment_db_port_prefix: "4000"
 
 ambari::agent::server_host: "%{hiera('bigtop::hadoop_head_node')}"
-
-# Elasticsearch
-elasticsearch::bootstrap::system_call_filter: true
